@@ -31,9 +31,9 @@ end
 
 action :up do
   execute "running docker-compose up for project #{project_name}" do
-    command "docker-compose #{get_compose_params} up #{get_up_params}"
-    user 'deployer'
-    group 'docker'
+    command "whoami > /tmp/eu && docker-compose #{get_compose_params} up #{get_up_params}"
+    user user
+    group group
   end
 end
 
@@ -41,7 +41,7 @@ end
 action :down do
   execute "running docker-compose down for project #{project_name}" do
     command "docker-compose #{get_compose_params} down  #{get_down_params}"
-    user 'deployer'
-    group 'root'
+    user user
+    group group
   end
 end
