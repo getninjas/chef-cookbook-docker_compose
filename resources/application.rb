@@ -8,6 +8,8 @@ property :project_name, kind_of: String, name_property: true
 property :compose_files, kind_of: Array, required: true
 property :remove_orphans, kind_of: [TrueClass, FalseClass], default: false
 property :services, kind_of: Array, default: []
+property :user, kind_of: String, default: 'root'
+property :group, kind_of: String, default: 'root'
 
 default_action :up
 
@@ -30,8 +32,8 @@ end
 action :up do
   execute "running docker-compose up for project #{project_name}" do
     command "docker-compose #{get_compose_params} up #{get_up_params}"
-    user 'root'
-    group 'root'
+    user user
+    group group
   end
 end
 
@@ -39,7 +41,7 @@ end
 action :down do
   execute "running docker-compose down for project #{project_name}" do
     command "docker-compose #{get_compose_params} down  #{get_down_params}"
-    user 'root'
-    group 'root'
+    user user
+    group group
   end
 end
